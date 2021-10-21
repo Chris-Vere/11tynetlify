@@ -1,0 +1,1 @@
+{"version":3,"file":"home.js","mappings":";;;;;AAAA","sources":["webpack://11ty-test/./src/js/home.js"],"sourcesContent":["console.log('this is home');\n"],"names":[],"sourceRoot":""}

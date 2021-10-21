@@ -4,11 +4,21 @@
   "description": "Test building 11ty site with Netlify",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress",
+    "dev": "concurrently --kill-others \"eleventy --serve\" \"webpack\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1"
+    "@11ty/eleventy": "^0.12.1",
+    "concurrently": "^6.3.0",
+    "css-loader": "^6.4.0",
+    "file-loader": "^6.2.0",
+    "sass": "^1.43.2",
+    "sass-loader": "^12.2.0",
+    "style-loader": "^3.3.0",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1"
   }
 }
