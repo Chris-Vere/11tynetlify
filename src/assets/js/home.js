@@ -3,7 +3,7 @@ var __webpack_exports__ = {};
 /*!************************!*\
   !*** ./src/js/home.js ***!
   \************************/
-console.log('this is home');
+// console.log('this is home');
 
 /******/ })()
 ;

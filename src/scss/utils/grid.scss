@@ -1,0 +1,56 @@
+@use "sass:math";
+@import 'variables';
+
+$numCols: 12;
+$gutterWidth: 1rem;
+
+@mixin generateGrid {
+  @each $bpName, $bpValue in $breakpoints {
+    @media screen and (min-width: #{$bpValue}) {
+      @for $col from 1 through $numCols {
+        .row .col-#{$bpName}-#{$col} {
+          $length: math.div($col, $numCols);
+          width: math.percentage($length);
+        }
+      }
+    }
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -#{$gutterWidth} 1rem;
+
+  [class*="col-"] {
+    width: 100%;
+    padding: 0 $gutterWidth;
+    @each $bpName, $bpValue in $breakpoints {
+      @media screen and (min-width: #{$bpValue}) {
+        @for $order from 1 through 6 {
+          &.-order-#{$bpName}-#{$order} {
+            order: $order;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include generateGrid();
+
+$justifyPositions: (
+  "left": flex-start,
+  "right": flex-end,
+  "center": center
+);
+
+@each $justifyName, $justifyValue in $justifyPositions {
+  @each $bpName, $bpValue in $breakpoints {
+    @media screen and (min-width: #{$bpValue}) {
+      .justify-#{$justifyName}-#{$bpName} {
+        justify-content: $justifyValue;
+      }
+    }
+  }
+}

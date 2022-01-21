@@ -1,0 +1,74 @@
+{%
+  macro table(
+    headersData,
+    bodyData,
+    caption,
+    tableID)
+%}
+  <table>
+    <caption>{{caption}}</caption>
+    <thead>
+      <tr>
+        {% for headerConfig in headersData %}
+          <th scope="col" id="{{getColumnHeaderID(tableID, loop.index0) | trim}}">{{headerConfig.text}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in bodyData %}
+        {% set rowIndex = loop.index0 %}
+        <tr>
+          {% for headerConfig in headersData %}
+            {% set columnIndex = loop.index0 %}
+            {% if columnIndex === 0 %}
+              {% set elemName = "h" %}
+              {% set headersAttr = getColumnHeaderID(tableID, columnIndex) %}
+            {% else %}
+              {% set elemName = "d" %}
+              {% set headersA = getRowHeaderID(tableID, rowIndex) | trim %}
+              {% set headersB = getColumnHeaderID(tableID, columnIndex) | trim %}
+              {% set headersAttr = [headersA, headersB].join(' ') %}
+            {% endif %}
+
+            <t{{elemName}} {% if columnIndex === 0 %}scope="row" id="{{getRowHeaderID(tableID, rowIndex) | trim}}"{% endif %} headers="{{headersAttr | trim}}">
+              {% set macroArgs = headerConfig.cellContent.macroArgs %}
+              {{ headerConfig.cellContent.macro(event, macroArgs) }}
+            </t{{elemName}}>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endmacro %}
+
+{# Internal Macros #}
+{% macro getColumnHeaderID(tableID, columnIndex) %}
+  {{tableID}}-column-header-{{columnIndex}}
+{% endmacro %}
+
+{% macro getRowHeaderID(tableID, rowIndex) %}
+  {{tableID}}-row-header-{{rowIndex}}
+{% endmacro %}
+{# ================= #}
+
+{# Public Macros #}
+  {# Events #}
+{% macro eventsDateLocation(cellData, config) %}
+  {{ cellData[config[0]] }}<br>
+  {{ cellData[config[1]] }}
+{% endmacro %}
+
+{% macro eventsLinkedName(cellData, config) %}
+  <a href="{{cellData.url}}">{{cellData.name}}</a>
+{% endmacro %}
+
+  {# News #}
+{% macro newsDateSource(cellData, config) %}
+  {{ cellData[config[0]] }}<br>
+  {{ cellData[config[1]] }}
+{% endmacro %}
+
+{% macro newsDescription(cellData, config) %}
+  {{ cellData[config[0]] | safe}}
+{% endmacro %}
+{# ================= #}

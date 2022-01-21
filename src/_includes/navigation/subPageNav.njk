@@ -1,0 +1,13 @@
+{% set navData = navigationData.getNav(parentNavPath) %}
+
+<nav class="in-page-nav">
+  <h1 class="in-page-nav-title">{{navData.title}}</h1>
+  <ul class="in-page-nav-list">
+    {% for page in navData.pages %}
+      {% set isActive = page.key == currentPage %}
+      <li class="in-page-nav-list-item{% if isActive %} -active{% endif %}" {% if isActive %} aria-current="page"{% endif %}>
+        <a href="{{page.url}}" class="in-page-nav-link{% if isActive %} -active{% endif %}">{{page.title}}</a>
+      </li>
+    {% endfor%}
+  </ul>
+</nav>

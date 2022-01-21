@@ -1,0 +1,148 @@
+@use "sass:map";
+
+@import '../utils/colors';
+@import '../utils/variables';
+
+$bp-begin-multi-col: 600px;
+
+.page-footer {
+  padding: 1.5rem 1rem 1rem;
+  font-size: 0.9rem;
+  background-color: $blue;
+  border-top: 3px solid $blue-dark;
+  border-bottom: 6px solid $blue-dark;
+  color: $white;
+}
+
+@media screen and (min-width: 1200px){
+  .footer-content-wrap {
+    padding: 0 1em;
+  }
+}
+
+.nav-footer {
+  @media screen and (min-width: 1200px){
+    margin-bottom: 1.5rem;
+  }
+
+  &-heading,
+  &-sub-heading {
+    font-weight: bold;
+    color: $yellow;
+    margin-bottom: 0.25em;
+  }
+
+  &-heading {
+    font-size: 1.25em;
+  }
+
+  &-sub-heading {
+    font-size: 1.1em;
+  }
+
+  &-link {
+    color: $white;
+    font-weight: normal;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: $yellow;
+    }
+  }
+
+  &-heading-link {
+    font-weight: bold;
+    color: $yellow;
+    text-decoration: none;
+  }
+
+  &-list,
+  &-sub-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &-sub-list {
+    margin-bottom: 1.5rem;
+
+    @media screen and (min-width: 1024px){
+      margin-bottom: 0;
+    }
+  }
+
+  &-list {
+    @media screen and (min-width: 1024px){
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    @media screen and (min-width: 1200px){
+      justify-content: space-between;
+    }
+
+    &-item {
+      margin-bottom: 1.5rem;
+      @media screen and (min-width: 1024px){
+        width: 20%;
+
+        &.-large {
+          width: 80%;
+        }
+      }
+
+      @media screen and (min-width: 1200px){
+        width: auto;
+        margin-bottom: 0;
+
+        &.-large {
+          width: auto;
+        }
+      }
+    }
+  }
+
+  &-sub-list {
+    @media screen and (min-width: 600px){
+      display: flex;
+      
+      &-item {
+        margin-left: 1em;
+        
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+
+    @media screen and (min-width: 1024px){
+      display: block;
+
+      &-item {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &-sub-groups {
+    @media screen and (min-width: 1024px){
+      display: flex;
+
+    }
+  }
+
+  &-sub-group-item {
+    @media screen and (min-width: 1024px){
+      margin-left: 4em;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.copyright {
+  margin: 0;
+}

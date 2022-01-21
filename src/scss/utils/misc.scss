@@ -1,0 +1,46 @@
+@use "sass:map";
+
+@import 'colors';
+@import 'variables';
+
+.visuallyhidden {
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  position: absolute;
+}
+
+.constrained-width {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.top-border {
+  border-top: 8px solid $blue;
+  padding-top: 8px;
+}
+
+.polaroid {
+  border: 8px solid $white;
+  box-shadow: 0 0 8px rgba($black, 0.5);
+
+  &.-in-body {
+    @media screen and (min-width: 600px) {
+      width: auto;
+
+      &.-left {
+        float: left;
+        margin-right: 1.25em;
+      }
+
+      &.-right {
+        float: right;
+        margin-left: 1.25em;
+      }
+    }    
+  }
+}

@@ -1,8 +1,16 @@
 {% include "htmlhead.njk" %}
-<main>
-  {% block content %}
-    <h1>{{ title }}</h1>
-    {{ content | safe }}
-  {% endblock %}
-</main>
+
+<div class="page-wrap" id="page-wrap">
+  {% include "mobile-header.njk" %}
+  <div class="content-wrap">
+    <main class="main constrained-width">
+      {% block content %}
+        <h1 class="page-header">{{ pageTitle }}</h1>
+        {{ content | safe }}
+      {% endblock %}
+    </main>
+  </div>
+  {% include "footer.njk" %}
+</div>
+
 {% include "htmlfoot.njk" %}
