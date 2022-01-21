@@ -1,0 +1,43 @@
+@import './utils/colors';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  background-color: $white;
+}
+
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 0 0 0 2em;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.25rem;
+}
+
+
+hr {
+  margin: 1rem 0;
+  border-color: $blue-dark;
+  border-style: solid;
+  border-bottom: none;
+}
+
+td {
+  border-bottom: 1px solid $black;
+}

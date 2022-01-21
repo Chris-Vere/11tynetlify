@@ -1,0 +1,21 @@
+{% import "tables/generate-table.njk" as tables %}
+{{
+  tables.table(
+    [{
+      text: 'Date and Source',
+      cellContent: {
+        macro: tables.newsDateSource,
+        macroArgs: ['date', 'name']
+      }
+    }, {
+      text: 'Description',
+      cellContent: {
+        macro: tables.newsDescription,
+        macroArgs: ['description']
+      }
+    }],
+    newsData,
+    'Bonefish Capital News and Publications',
+    'newss-table'
+  )
+}}

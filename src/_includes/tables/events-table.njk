@@ -1,0 +1,21 @@
+{% import "tables/generate-table.njk" as tables %}
+{{
+  tables.table(
+    [{
+      text: 'Event Date and Location',
+      cellContent: {
+        macro: tables.eventsDateLocation,
+        macroArgs: ['date', 'location']
+      }
+    }, {
+      text: 'Event Name and Link',
+      cellContent: {
+        macro: tables.eventsLinkedName,
+        macroArgs: ['name', 'url']
+      }
+    }],
+    eventsData,
+    'Bonefish Capital Events',
+    'events-table'
+  )
+}}

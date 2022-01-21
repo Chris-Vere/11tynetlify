@@ -1,0 +1,131 @@
+@use "sass:map";
+
+@import 'colors';
+@import 'variables';
+
+[tabindex="-1"] {
+  &:focus {
+    outline: none;
+  }
+}
+
+.skip-nav {
+  display: none;
+
+  @media (min-width: map.get($breakpoints, 'lg')) {
+    $box-shadow-length: 10px;
+
+    position: absolute;
+    display: block;
+    left: 50%;
+    bottom: 100%;
+    z-index: 2;
+    transform: translateY(-$box-shadow-length) translateX(-50%);
+    padding: 1rem 0.7rem 0.8rem;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid $blue-dark;
+    border-radius: 0 0 0.75em 0.75em;
+    color: $blue;
+    font-weight: bold;
+    font-size: 1.25rem;
+    background: $white;
+    box-shadow: 0 0 $box-shadow-length black;
+    text-decoration: none;
+
+    transition: transform 0.2s ease-in-out;
+
+    &:focus {
+      transform: translateY(100%) translateX(-50%);
+    }
+  }
+}
+
+.intro {
+  margin: 1.618rem 0 3rem;
+}
+
+.page-header {
+  margin-bottom: 1em;
+  padding: 0.25em 0;
+  border-bottom: 8px solid $blue;
+
+  .no-heading-border & {
+    border-bottom-width: 0;
+    margin-bottom: 0.75em;
+    padding-bottom: 0;
+  }
+}
+
+.visuallyhidden {
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  position: absolute;
+}
+
+.constrained-width {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.top-border {
+  border-top: 8px solid $blue;
+  padding-top: 0.5em;
+}
+
+.polaroid {
+  border: 8px solid $white;
+  box-shadow: 0 0 8px rgba($black, 0.5);
+
+  &.-in-body {
+    @media screen and (min-width: 600px) {
+      width: auto;
+
+      &.-left {
+        float: left;
+        margin-right: 1.25em;
+      }
+
+      &.-right {
+        float: right;
+        margin-left: 1.25em;
+      }
+    }    
+  }
+}
+
+.embedded-map {
+  width: 100%;
+  height: 450px;
+  border: 1px solid $blue-dark;
+}
+
+.learn-more-link {
+  display: flex;
+  text-decoration: none;
+  margin-top: 0.75em;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 13px;
+    height: 26px;
+    margin-right: 0.75em;
+    background-image: url("/assets/images/style/read-more.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: translateX(0px);
+    transition: 0.2s ease-in-out;
+  }
+
+  &:hover {
+    &::before {
+      transform: translateX(0.5em);
+    }
+  }
+}

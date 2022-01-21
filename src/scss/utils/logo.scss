@@ -1,0 +1,22 @@
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 215px;
+  height: 145px;
+  background-image: url('/assets/images/style/logo-bg.svg');
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+
+  &:focus-visible {
+    outline: 2px solid $blue-dark;
+  }
+}
+
+.logo-img {
+  display: block;
+  width: auto;
+  position: relative;
+  top: -9px;
+}

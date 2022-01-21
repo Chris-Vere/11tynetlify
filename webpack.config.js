@@ -4,12 +4,12 @@ module.exports = {
   watch: true,
   entry: {
     global: './src/js/global.js',
-    home: './src/js/home.js'
   },
   output: {
     filename: '[name].js',
     path: __dirname + '/src/assets/js',
-    sourceMapFilename: "[name].js.map"
+    sourceMapFilename: "[name].js.map",
+    clean: true,
   },
   devtool: "source-map",
   module: {

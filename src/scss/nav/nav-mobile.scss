@@ -1,0 +1,202 @@
+@use "sass:math";
+
+@import '../utils/variables';
+@import '../utils/colors';
+@import '../utils/buttons';
+
+$navWidth: 280px;
+
+@keyframes showMobileNav {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-$navWidth);
+  }
+}
+
+@keyframes hideMobileNav {
+  from {
+    transform: translateX(-$navWidth);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slider {
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    width: calc(100vw + $navWidth);
+
+    .begin-nav-open & {
+      animation-name: showMobileNav;
+      animation-duration: $mobile-nav-animation-speed;
+      animation-fill-mode: forwards;
+    }
+
+    .begin-nav-close & {
+      animation-name: hideMobileNav;
+      animation-duration: $mobile-nav-animation-speed;
+      animation-fill-mode: forwards;
+      animation-delay: 0.01s;
+      transform: translateX(-$navWidth);
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+    width: 100%;
+  }
+}
+
+.page-wrap {
+  position: relative;
+  width: 100vw;
+  @media screen and (max-width: 768px) {
+    border-top: 3px solid $blue-dark;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -#{$top-border-length};
+      left: 0;
+      width: 100%;
+      height: calc(100% + $top-border-length);
+      transition: background-color 0.5s;
+      background-color: rgba($black, 0);
+    }
+
+    .init-nav-open & {
+      &::after {
+        display: block;
+      }
+    }
+
+    .begin-nav-open & {
+      &::after {
+        background-color: rgba($black, 0.75);
+      }
+    }
+
+    .begin-nav-close & {
+      &::after {
+        background-color: rgba($black, 0);
+      }
+    }
+
+    &,
+    .complete-nav-close & {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+.nav-mobile {
+  display: none;
+  $right-spacing: 1rem;
+  position: relative;
+  width: $navWidth;
+  font-size: 1.1rem;
+  text-align: right;
+  background-color: $blue;
+  
+  @media screen and (max-width: 768px) {
+    .init-nav-open & {
+      display: block;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 16px;
+    height: 100%;
+    background-image: linear-gradient(90deg, rgba($black, 0.6), transparent);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+
+  &-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    &.-l2 {
+      margin-bottom: 0.25rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &-item {
+      &.-l1 {
+        margin-bottom: 0.75rem;
+      }
+    }
+  }
+
+  &-heading {
+    display: block;
+    font-size: 1.0em;
+    margin-bottom: 0;
+
+    &.-l1 {
+      background-color: $blue-dark;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &-link {
+    display: inline-block;
+    color: $white;
+    line-height: 1;
+    font-weight: 400;
+    text-decoration: none;
+    padding: 0.5em 0.75em 0.5em;
+
+    &.-heading-1,
+    &.-heading-2 {
+      font-weight: 800;
+      color: $yellow;
+    }
+
+    &.-heading-1 {
+      font-size: 1.1em;
+    }
+  }
+}
+
+.mobile-nav-close-btn {
+  @include custom-btn();
+
+  position: absolute;
+  top: 4px;
+  left: 1.5rem;
+  display: block;
+  padding: 0.25em 0.5em;
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1;
+  color: $white;
+  border: 1px solid $white;
+  border-radius: 6px;
+
+  &:focus {
+    outline: none;
+    color: $yellow;
+    border-color: $yellow;
+  }
+}

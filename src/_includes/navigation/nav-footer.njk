@@ -1,0 +1,51 @@
+{% set navData = navigationData.getNav('root') %}
+
+<nav class="nav-footer" role="navigation" aria-label="Footer navigation">
+  <ul class="nav-footer-list">
+    {% for l1Page in navData.pages %}
+      <li class="nav-footer-list-item">
+        <h2 class="nav-footer-heading">
+          {% if l1Page.url %}
+          <a href="/" class="nav-footer-heading-link">{{ l1Page.title }}</a>
+          {% else %}
+            <span class="nav-footer-heading-link">{{ l1Page.title }}</span>
+          {% endif %}
+        </h2>
+        {% if l1Page.hasSubGroups %}
+          <div class="nav-footer-sub-groups">
+            {% for l2Page in l1Page.pages %}
+            <div class="nav-footer-sub-group-item">
+              <h3 class="nav-footer-sub-heading">
+                {% if l2Page.url %}
+                  <a href="{{ l2Page.url }}" class="nav-footer-heading-link">{{ l2Page.title }}</a>
+                {% else %}
+                  <span href="{{ l2Page.url }}" class="nav-footer-heading-link">{{ l2Page.title }}</span>
+                {% endif %}
+              </h3>
+              {% if l2Page.pages %}
+                <ul class="nav-footer-sub-list">
+                  {% for l3Page in l2Page.pages %}
+                    <li class="nav-footer-sub-list-item">
+                      <a href="{{ l3Page.url }}" class="nav-footer-link -sub"{% if l3Page.ariaLabel %}aria-label="{{ l3Page.ariaLabel }}"{% endif %}>{{ l3Page.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          {% if l1Page.pages %}
+            <ul class="nav-footer-sub-list">
+              {% for l2page in l1Page.pages %}
+                <li class="nav-footer-sub-list-item">
+                  <a href="{{ l2page.url }}" class="nav-footer-link -sub">{{ l2page.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

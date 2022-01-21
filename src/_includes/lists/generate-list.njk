@@ -1,0 +1,30 @@
+{%
+  macro list(
+    listData,
+    macro,
+    listClass,
+    limit
+  )
+%}
+  <ul class="{{ listClass }}">
+    {% for event in listData %}
+      {% if limit %}
+        {% if loop.index0 < limit %}
+          {{ macro(event) }}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+
+{% macro stylizedEventListItem(itemData) %}
+  <li class="stylized-list-item">
+    <h4 class="stylized-list-item-heading">{{itemData.date}}</h4>
+    <p class="stylized-list-item-desc"><a href="{{ itemData.url }}" rel="external">{{ itemData.name }}</a></p>
+  </li>
+{% endmacro %}
+
+{% macro stylizedNewsListItem(itemData) %}
+  <li class="stylized-list-item">{{ itemData.description | safe }}</li>
+{% endmacro %}

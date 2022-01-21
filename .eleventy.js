@@ -1,4 +1,7 @@
+const del = require('del');
 module.exports = config => {
+  del('dist/*');
+
   config.addPassthroughCopy('./src/assets/');
   return {
     dir: {

@@ -1,0 +1,51 @@
+@import '../utils/variables';
+@import '../utils/colors';
+@import '../utils/buttons';
+
+.mobile-header {
+  @media screen and (min-width: 769px){
+    display: none;
+  }
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  background-color: $blue;
+}
+
+.home-link {
+  position: relative;
+  top: -$top-border-length;
+  margin-bottom: -50px;
+}
+
+.mobile-nav-toggle {
+  @include custom-btn();
+
+  $thickness: 6px;
+  right: 1.5rem;
+  align-self: center;
+  position: absolute;
+  display: block;
+  width: 30px;
+  margin: 0;
+  border-top: $thickness solid $white;
+  border-bottom: $thickness solid $white;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity $mobile-nav-animation-speed;
+
+  .begin-nav-open & {
+    opacity: 0.2;
+  }
+
+  &::before{
+    content: "";
+    display: block;
+    width: 100%;
+    height: $thickness;
+    margin: 6px 0;
+    background-color: $white;
+  }
+}
