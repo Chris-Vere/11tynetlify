@@ -62,6 +62,7 @@ $navWidth: 280px;
     &::after {
       content: "";
       position: absolute;
+      z-index: 1;
       top: -#{$top-border-length};
       left: 0;
       width: 100%;
