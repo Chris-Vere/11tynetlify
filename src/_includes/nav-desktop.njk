@@ -1,0 +1,50 @@
+{% set navData = navigationData.getNav('root') %}
+
+<nav class="nav-desktop">
+  <ul class="nav-desktop-list -root">
+    <li class="nav-desktop-list-item -home">
+      <a href="/" class="nav-desktop-link logo-wrapper" aria-label="Bonefish Capital Homepage">
+        <img src="/assets/images/content/logo.svg" class="logo-img" alt=""/>
+      </a>
+    </li>
+    {% for page in navData.pages %}
+      <li class="nav-desktop-list-item -l1{{ " -after-logo" if page.isAfterLogo }}">
+        <h2 class="nav-desktop-heading">
+          {% if page.url %}
+            <a href="{{page.url}}" class="nav-desktop-link -heading-1">{{page.title}}</a>
+          {% else %}
+            <span class="nav-desktop-link -heading-1">{{page.title}}</span>
+          {% endif %}
+        </h2>
+        {% if page.pages %}
+          <div class="nav-desktop-list-menu">
+            {% for l1Page in page.pages %}
+              {% if l1Page.isSectionHeading and l1Page.pages %}
+                <h3 class="nav-desktop-heading">
+                  <a href="{{l1Page.url}}" class="nav-desktop-link -heading-2">{{l1Page.title}}</a>
+                </h3>
+                <ul class="nav-desktop-list -l2">
+                  {% for l2Page in l1Page.pages %}
+                    <li>
+                      <a href="{{l2Page.url}}" class="nav-desktop-link -l1">{{l2Page.title}}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                {% if loop.first %}
+                  <ul class="nav-desktop-list -l1">
+                {% endif %}
+                  <li>
+                    <a href="{{l1Page.url}}" class="nav-desktop-link -l1">{{l1Page.title}}</a>
+                  </li>
+                {% if loop.last %}
+                  </ul>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
