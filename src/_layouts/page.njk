@@ -1,8 +1,26 @@
-{% include "htmlhead.njk" %}
-<main>
-  {% block content %}
-    <h1>{{ title }}</h1>
-    {{ content | safe }}
-  {% endblock %}
-</main>
-{% include "htmlfoot.njk" %}
+{% include "html-head.njk" %}
+  <a href="#page-header" class="skip-nav" id="skip-nav">Skip to main</a>
+  <div class="slider" id="page-slider">
+    {% include "navigation/nav-mobile.njk" %}
+    {% include "navigation/nav-desktop.njk" %}
+    <div class="page-wrap" id="page-wrap">
+      <header class="mobile-header">
+        <h1 class="visuallyhidden">Bonesfish Captial</h1>
+        <a href="/" class="logo-wrapper home-link" aria-label="Home">
+          <img class="logo-img" src="/assets/images/content/logo.svg" alt="" />
+        </a>
+
+        <button class="mobile-nav-toggle" id="btn-open-mobile-nav" aria-label="Show navigation"></button>
+      </header>
+      <div class="content-wrap">
+        <main class="main constrained-width">
+          {% block content %}
+            <h1 class="page-header">{{ pageTitle }}</h1>
+            {{ content | safe }}
+          {% endblock %}
+        </main>
+      </div>
+      {% include "footer.njk" %}
+    </div>
+  </div>
+{% include "html-foot.njk" %}

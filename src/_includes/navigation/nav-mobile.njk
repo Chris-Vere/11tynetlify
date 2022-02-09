@@ -1,0 +1,43 @@
+{% set navData = navigationData.getNav('root') %}
+
+<nav class="nav-mobile" id="mobile-nav" aria-hidden="true">
+  <ul class="nav-mobile-list -l1">
+    <li class="nav-mobile-list-item -l1">
+      <span class="nav-mobile-heading -l1">
+        <a href="/" class="nav-mobile-link -heading-1">Home</a>
+      </span>
+    </li>
+    {% for siteSection in navData.pages %}
+      <li class="nav-mobile-list-item -l1">
+        <h2 class="nav-mobile-heading -l1">
+          <span class="nav-mobile-link -heading-1">{{ siteSection.title }}</span>
+        </h2>
+        {% if siteSection.hasSubGroups %}
+          {% for l1Page in siteSection.pages %}
+            <h3 class="nav-mobile-heading -l2">
+              <a href="{{ l1Page.url }}" class="nav-mobile-link -heading-2">{{ l1Page.title }}</a>
+            </h3>
+            {% if l1Page.pages %}
+              <ul class="nav-mobile-list -l2">
+                {% for l2Page in l1Page.pages %}
+                <li class="nav-mobile-list-item">
+                  <a href="{{ l2Page.url }}" class="nav-mobile-link">{{ l2Page.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <ul class="nav-mobile-list -l1">
+            {% for l1Page in siteSection.pages %}
+            <li class="nav-mobile-list-item">
+              <a href="{{ l1Page.url }}" class="nav-mobile-link">{{ l1Page.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  <button class="mobile-nav-close-btn" id="btn-close-mobile-nav">Close menu</button>
+</nav>

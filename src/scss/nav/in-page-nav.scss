@@ -1,0 +1,54 @@
+@import '../utils/colors';
+
+.in-page-nav {
+  &-title {
+    margin: 0;
+    padding: 0.5em 0.3em 0.5em 0.75rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: $gray;
+    color: $white;
+  }
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    border-right: 1px solid $gray-light;
+
+    &-item {
+      display: flex;
+      width: 100%;
+      border-bottom: 1px solid $gray-light;
+
+      &::before {
+        content: '';
+        display: block;
+        width: 0.5rem;
+        height: 100%;
+        background-color: $gray-light;
+      }
+
+      &.-active {
+        &::before {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  &-link {
+    display: block;
+    padding: 0.75em;
+    text-decoration: none;
+    line-height: 1;
+    color: $gray;
+
+    &:hover,
+    &.-active {
+      color: $blue;
+    }
+  }
+}

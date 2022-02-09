@@ -1,0 +1,10 @@
+{% import "lists/generate-list.njk" as lists %}
+{{
+  lists.list(
+    eventsData,
+    lists.stylizedEventListItem,
+    'stylized-list',
+    3
+  )
+}}
+

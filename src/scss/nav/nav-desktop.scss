@@ -1,0 +1,127 @@
+@import '../utils/colors';
+@import '../utils/variables';
+
+@mixin focus {
+  outline: 1px solid $white;
+}
+
+.nav-desktop {
+  display: none;
+
+  @media screen and (min-width: 769px){
+    display: block;
+    position: relative;
+    z-index: 1;
+
+    border-top: $top-border-length solid $blue-dark;
+    background-color: $blue;
+
+    &-list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      
+      &.-root {
+        display: flex;
+        justify-content: center;
+      }
+
+      &.-l1,
+      &.-l2{
+        flex-direction: column;
+      }
+
+      &.-l1 {
+        padding: 0.5em;
+      }
+
+      &.-l2 {
+        margin-bottom: 0.5rem;
+      }
+
+      &-item {
+        &.-home {
+          position: relative;
+          top: -$top-border-length;
+          order: 1;
+          margin-bottom: -50px;
+        }
+
+        &.-after-logo,
+        &.-after-logo + & {
+          order: 2;
+        }
+
+        &.-l1 {
+          position: relative;
+          display: flex;
+
+          &:hover,
+          &:focus-within {
+            background-color: $blue-dark;
+
+            .nav-desktop-list-menu {
+              display: block;
+            }
+
+            .nav-desktop-link.-heading-1 {
+              color: $yellow;
+            }
+          }
+        }
+      }
+
+      &-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        padding: 1rem 0.5rem;
+        background-color: $blue-dark;
+
+        .-after-logo & {
+          right: inherit;
+          left: 0;
+        }
+      }
+    }
+
+    &-link {
+      display: block;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1;
+      text-decoration: none;
+      color: $white;
+      white-space: nowrap;
+      
+      &:hover {
+        color: $yellow;
+      }
+      
+      &:focus {
+        @include focus;
+      }
+      
+      &.-heading-1 {
+        display: block;
+        padding: 2.25rem 1.2rem;
+        font-size: 1.1rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      &.-heading-2 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: $yellow;
+      }
+    }
+
+    &-heading {
+      margin: 0;
+      display: flex;
+    }
+  }
+}

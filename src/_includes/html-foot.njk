@@ -1,0 +1,11 @@
+  {% if excludeGlobalScript != true %}
+    <script type="text/javascript" src="/assets/js/global.js"></script>
+  {% endif %}
+
+  {% if scripts %}
+    {% for script in scripts %}
+      <script type="text/javascript" src="/assets/js/{{script}}"></script>
+    {% endfor %}
+  {% endif %}
+  </body>
+</html>
