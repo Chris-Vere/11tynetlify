@@ -1,0 +1,79 @@
+[[redirects]]
+  from = "/who-we-are/"
+  to = "/who-we-are/our-philosophy/"
+  status = 301
+
+[[redirects]]
+  from = "/what-we-do/"
+  to = "/what-we-do/private-equity-services/"
+  status = 301
+
+[[redirects]]
+  from = "/private-equity-services/"
+  to = "/what-we-do/private-equity-services/"
+  status = 301
+
+[[redirects]]
+  from = "/private-equity-services/retained-acquisition-services/"
+  to = "/what-we-do/private-equity-services/retained-acquisition/"
+  status = 301
+
+[[redirects]]
+  from = "/private-equity-services/restructuring-services/"
+  to = "/what-we-do/private-equity-services/restructuring/"
+  status = 301
+
+[[redirects]]
+  from = "/private-equity-services/interim-cxo-leadership/"
+  to = "/what-we-do/private-equity-services/interim-cxo-leadership/"
+  status = 301
+
+[[redirects]]
+  from = "/corporate-services/"
+  to = "/what-we-do/corporate-services/"
+  status = 301
+
+[[redirects]]
+  from = "/corporate-services/retained-acquisition/"
+  to = "/what-we-do/corporate-services/retained-acquisition/"
+  status = 301
+
+[[redirects]]
+  from = "/corporate-services/financing-advisory/"
+  to = "/what-we-do/corporate-services/financing-advisory/"
+  status = 301
+
+[[redirects]]
+  from = "/corporate-services/strategic-advisory/"
+  to = "/what-we-do/corporate-services/strategic-advisory/"
+  status = 301
+
+[[redirects]]
+  from = "/corporate-services/restructuring-advisory/"
+  to = "/what-we-do/corporate-services/restructuring-advisory/"
+  status = 301
+
+[[redirects]]
+  from = "/corporate-services/interim-cxo-leadership/"
+  to = "/what-we-do/corporate-services/interim-cxo-leadership/"
+  status = 301
+
+[[redirects]]
+  from = "/corporate-services/interim-cxo-leadership/"
+  to = "/what-we-do/corporate-services/interim-cxo-leadership/"
+  status = 301
+
+[[redirects]]
+  from = "/executive-services/"
+  to = "/what-we-do/executive-services/"
+  status = 301
+
+[[redirects]]
+  from = "/executive-services/retained-acquisition/"
+  to = "/what-we-do/executive-services/retained-acquisition/"
+  status = 301
+
+[[redirects]]
+  from = "/resource-center/"
+  to = "/resource-center/events/"
+  status = 301
