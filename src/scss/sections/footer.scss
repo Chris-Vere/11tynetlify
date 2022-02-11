@@ -11,6 +11,7 @@ $bp-begin-multi-col: 600px;
   border-top: 3px solid $blue-dark;
   border-bottom: 6px solid $blue-dark;
   color: $white;
+  margin-top: auto;
 
   @media screen and (min-width: 1200px){
     font-size: 0.9rem;
