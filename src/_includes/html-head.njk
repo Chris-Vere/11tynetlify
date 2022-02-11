@@ -4,8 +4,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ contactData.name }}: {{ title }}</title>
-    <meta name="description" content="{{ description }}">
+    <title>Bonefish Capital{% if title %} - {{ title }}{% endif %}</title>
+    {% if description %}<meta name="description" content="{{ description }}">{% endif %}
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/global.css" />
 
     <script type="application/ld+json">
