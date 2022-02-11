@@ -10,11 +10,11 @@ currentPage: contact
 <div class="row">
   <div class="col-sm-12 col-md-5 col-lg-4">
     <p>
-      Bonefish Capital LLC<br />
-      13755 Hutton Drive, Suite 300<br />
-      Farmers Branch, Texas 75234<br />
-      <a href="tel:2146922900">214-692-2900</a><br />
-      <a href="mailto:info@bonefishcapital.com">info@bonefishcapital.com</a>
+      {{ contactData.name }}<br />
+      {{ contactData.streetAddress }}<br />
+      {{ contactData.city }}, {{ contactData.state }} {{ contactData.zip }}<br />
+      <a href="tel:{{ contactData.phoneIntl }}">{{ contactData.phonePretty }}</a><br />
+      <a href="mailto:{{ contactData.email }}">{{ contactData.email }}</a>
     </p>
 
     <h3>Lodging</h3>

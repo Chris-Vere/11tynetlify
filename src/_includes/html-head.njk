@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ title }}</title>
-  <meta name="description" content="{{ description }}">
-  <link rel="stylesheet" href="/assets/css/global.css" />
-</head>
-<body {% if bodyClasses %}class="{{bodyClasses}}"{% endif %}>
+  {% set pageURL = [contactData.baseURL, page.url].join('') %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ contactData.name }}: {{ title }}</title>
+    <meta name="description" content="{{ description }}">
+    <link rel="stylesheet" href="/assets/css/global.css" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Organization",
+      "name": "{{ contactData.name }}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ contactData.streetAddress }}",
+        "postalCode": "{{ contactData.zip }}",
+        "addressLocality": "{{ contactData.city }}",
+        "addressRegion": "{{ contactData.state }}"
+      },
+      "telephone": "{{ contactData.phoneIntl }}",
+      "url" : "{{ contactData.baseURL }}",
+      "email": "{{ contactData.email }}",
+      "image": "{{ imageData.logoStatic }}",
+      "logo": "{{ imageData.logoStatic }}",
+      "founder": {
+        "@type": "Person",
+        "name": "Paul M. Zaidins",
+        "jobTitle": "Managing Partner & Founder"
+      }
+    }
+    </script>
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:url" content="{{pageURL}}" />
+    <meta property="og:image" content="{{ imageData.logoStatic }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="{{ description }}" />
+  </head>
+  <body {% if bodyClasses %}class="{{ bodyClasses }}"{% endif %}>
