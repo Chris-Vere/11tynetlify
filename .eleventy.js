@@ -1,8 +1,17 @@
 const del = require('del');
+
+const passThroughPaths = [
+  './src/assets/',
+  './src/favicon.ico',
+];
+
 module.exports = config => {
   del('dist/*');
 
-  config.addPassthroughCopy('./src/assets/');
+  passThroughPaths.forEach((path) => {
+    config.addPassthroughCopy(path);
+  });
+
   return {
     dir: {
       input: 'src',
