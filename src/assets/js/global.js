@@ -42,29 +42,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "initMobileNav": () => (/* binding */ initMobileNav),
 /* harmony export */   "initDesktopNav": () => (/* binding */ initDesktopNav)
 /* harmony export */ });
-let mobileNav;
-let btn_openNav;
-let firstFocusableItem;
-let lastFocusableItem;
-let pageWrap;
-let bodyHeader;
+/* harmony import */ var _utils_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/elements */ "./src/js/utils/elements.js");
+
+
 let outsideFocusables;
-let navDesktop;
 
 function initOpenMobileNav(e) {
   e.preventDefault();
-  mobileNav.setAttribute('aria-hidden', 'false');
-  pageWrap.setAttribute('aria-hidden', 'true');
+  _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.NAV_MOBILE.setAttribute('aria-hidden', 'false');
+  shouldShowNonMobileNavItems(false);
   
-  outsideFocusables.forEach((item) => {
-    item.setAttribute('aria-hidden', 'true');
-  });
-
   window.requestAnimationFrame(() => {
-    pageWrap.addEventListener('click', initCloseMobileNav);
-    mobileNav.addEventListener('keydown', trapFocus);
+    _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.PAGE_WRAP.addEventListener('click', initCloseMobileNav);
+    _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.NAV_MOBILE.addEventListener('keydown', trapFocus);
     document.body.classList.add('init-nav-open');
 
+    // wait for page reflow caused by .init-nav-open before actually animating
     window.requestAnimationFrame(() => {
       document.body.classList.add('begin-nav-open');
     });
@@ -73,33 +66,32 @@ function initOpenMobileNav(e) {
 
 function initCloseMobileNav(e) {
   e.preventDefault();
-  mobileNav.setAttribute('aria-hidden', 'true');
-  pageWrap.setAttribute('aria-hidden', 'false');
+  _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.NAV_MOBILE.setAttribute('aria-hidden', 'true');
+  shouldShowNonMobileNavItems(true);
 
   outsideFocusables.forEach((item) => {
     item.setAttribute('aria-hidden', 'false');
   });
 
   window.requestAnimationFrame(() => {
-    pageWrap.removeEventListener('click', initCloseMobileNav);
+    _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.PAGE_WRAP.removeEventListener('click', initCloseMobileNav);
     document.body.classList.add('begin-nav-close');
   });
 }
 
 function handleAnimationEnd({ animationName }) {
   if (animationName === 'hideMobileNav') {
-    mobileNav.removeEventListener('keydown', trapFocus);
+    _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.NAV_MOBILE.removeEventListener('keydown', trapFocus);
 
     window.requestAnimationFrame(() => {
       document.body.classList.remove('init-nav-open', 'begin-nav-open', 'begin-nav-close');
-      btn_openNav.focus();
+      _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.BTN_OPEN_NAV.focus();
     });
   }
 
   if(animationName === 'showMobileNav') {
-    
     window.requestAnimationFrame(() => {
-      firstFocusableItem.focus();
+      _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.FIRST_FOCUSABLE_MOBILE_NAV_ELEM.focus();
     });
   }
 }
@@ -110,13 +102,13 @@ function trapFocus(e) {
   }
 
   if(e.shiftKey) {
-    if(document.activeElement === firstFocusableItem) {
-      window.requestAnimationFrame(() => lastFocusableItem.focus());
+    if(document.activeElement === _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.FIRST_FOCUSABLE_MOBILE_NAV_ELEM) {
+      window.requestAnimationFrame(() => _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.LAST_FOCUSABLE_MOBILE_NAV_ELEM.focus());
       e.preventDefault();
     }
   } else {
-    if (document.activeElement === lastFocusableItem) {
-      window.requestAnimationFrame(() => firstFocusableItem.focus());
+    if (document.activeElement === _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.LAST_FOCUSABLE_MOBILE_NAV_ELEM) {
+      window.requestAnimationFrame(() => _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.FIRST_FOCUSABLE_MOBILE_NAV_ELEM.focus());
       e.preventDefault();
     }
   }
@@ -124,48 +116,84 @@ function trapFocus(e) {
   return;
 }
 
+function shouldShowNonMobileNavItems(shouldShow = true) {
+  window.requestAnimationFrame(() => {
+    if(shouldShow) {
+      _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.HIDDEN_FROM_OPEN_NAV.forEach((item) => {
+        item.setAttribute('aria-hidden', 'false');
+        item.removeAttribute('tabindex');
+      });
+    } else {
+      _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.HIDDEN_FROM_OPEN_NAV.forEach((item) => {
+        item.setAttribute('aria-hidden', 'true');
+        item.setAttribute('tabindex', '-1');
+      });
+    }
+  });
+}
+
 function skipToNav(e) {
   e.preventDefault();
-  bodyHeader.scrollIntoView({ behavior: 'smooth' });
-}
-
-function initSkipNav() {
-  const skipNavBtn = document.getElementById('skip-nav');
-  bodyHeader = document.getElementById('body-header');
-  skipNavBtn.addEventListener('click', skipToNav);
-}
-
-function initMobileNav() {
-  mobileNav = document.getElementById('mobile-nav');
-  btn_openNav = document.getElementById('btn-open-mobile-nav');
-  pageWrap = document.getElementById('page-wrap');
-  const btn_closeNav = document.getElementById('btn-close-mobile-nav');
-  const pageSlider = document.getElementById('page-slider');
-  const focusableItems = [...mobileNav.querySelectorAll('a, button')];
-  firstFocusableItem = focusableItems[0];
-  lastFocusableItem = focusableItems[focusableItems.length - 1];
-
-  outsideFocusables = [...document.getElementsByClassName('js-outside-focusable')];
-  btn_openNav.addEventListener('click', initOpenMobileNav);
-  btn_closeNav.addEventListener('click', initCloseMobileNav);
-  pageSlider.addEventListener('animationend', handleAnimationEnd);
+  _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.BODY_HEADER.scrollIntoView({ behavior: 'smooth' });
 }
 
 function handleMediaChange(obj) {
-  if(obj.matches) {
-    navDesktop.setAttribute('aria-hidden', 'false');
-  }else {
-    navDesktop.setAttribute('aria-hidden', 'true');
+  if (obj.matches) {
+    _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.NAV_DESKTOP.setAttribute('aria-hidden', 'false');
+  } else {
+    _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.NAV_DESKTOP.setAttribute('aria-hidden', 'true');
   }
 }
 
-function initDesktopNav() {
-  navDesktop = document.getElementById('nav-desktop');
-  
-  const mediaChange = window.matchMedia('screen and (min-width: 768px)');
-  mediaChange.addEventListener('change', handleMediaChange);
-  handleMediaChange(mediaChange);
+function initSkipNav() {
+  _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.BTN_SKIP_NAV.addEventListener('click', skipToNav);
 }
+
+function initMobileNav() {
+  outsideFocusables = [...document.getElementsByClassName('js-outside-focusable')];
+  _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.BTN_OPEN_NAV.addEventListener('click', initOpenMobileNav);
+  _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.BTN_CLOSE_NAV.addEventListener('click', initCloseMobileNav);
+  _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.PAGE_SLIDER.addEventListener('animationend', handleAnimationEnd);
+}
+
+function initDesktopNav() {
+  _utils_elements__WEBPACK_IMPORTED_MODULE_0__.ELS.NAV_DESKTOP = document.getElementById('nav-desktop');
+  
+  const mediaMatch = window.matchMedia('screen and (min-width: 768px)');
+  mediaMatch.addEventListener('change', handleMediaChange);
+  handleMediaChange(mediaMatch);
+}
+
+
+/***/ }),
+
+/***/ "./src/js/utils/elements.js":
+/*!**********************************!*\
+  !*** ./src/js/utils/elements.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ELS": () => (/* binding */ ELS),
+/* harmony export */   "initGlobalElements": () => (/* binding */ initGlobalElements)
+/* harmony export */ });
+const ELS = {};
+
+function initGlobalElements() {
+  ELS.NAV_MOBILE = document.getElementById('mobile-nav');
+  ELS.NAV_DESKTOP = document.getElementById('nav-desktop');
+  ELS.FOCUSABLE_MOBILE_NAV_ELEMS = [...ELS.NAV_MOBILE.querySelectorAll('a, button')];
+  ELS.FIRST_FOCUSABLE_MOBILE_NAV_ELEM = ELS.FOCUSABLE_MOBILE_NAV_ELEMS[0];
+  ELS.LAST_FOCUSABLE_MOBILE_NAV_ELEM = ELS.FOCUSABLE_MOBILE_NAV_ELEMS[ELS.FOCUSABLE_MOBILE_NAV_ELEMS.length - 1];
+  ELS.BTN_OPEN_NAV = document.getElementById('btn-open-mobile-nav');
+  ELS.BTN_CLOSE_NAV = document.getElementById('btn-close-mobile-nav');
+  ELS.BTN_SKIP_NAV = document.getElementById('skip-nav');
+  ELS.PAGE_WRAP = document.getElementById('page-wrap');
+  ELS.PAGE_SLIDER = document.getElementById('page-slider');
+  ELS.BODY_HEADER = document.getElementById('body-header');
+  ELS.HIDDEN_FROM_OPEN_NAV = [...document.getElementsByClassName('js-hidden-from-mobile-nav')];
+};
 
 
 /***/ })
@@ -267,14 +295,17 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_global_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/global.scss */ "./src/scss/global.scss");
 /* harmony import */ var _scss_home_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scss/home.scss */ "./src/scss/home.scss");
-/* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nav */ "./src/js/nav.js");
+/* harmony import */ var _utils_elements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/elements */ "./src/js/utils/elements.js");
+/* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nav */ "./src/js/nav.js");
+
 
 
 
  
-(0,_nav__WEBPACK_IMPORTED_MODULE_2__.initSkipNav)();
-(0,_nav__WEBPACK_IMPORTED_MODULE_2__.initMobileNav)();
-(0,_nav__WEBPACK_IMPORTED_MODULE_2__.initDesktopNav)();
+(0,_utils_elements__WEBPACK_IMPORTED_MODULE_2__.initGlobalElements)();
+(0,_nav__WEBPACK_IMPORTED_MODULE_3__.initSkipNav)();
+(0,_nav__WEBPACK_IMPORTED_MODULE_3__.initMobileNav)();
+(0,_nav__WEBPACK_IMPORTED_MODULE_3__.initDesktopNav)();
 
 })();
 

@@ -1,9 +1,9 @@
 {% include "html-head.njk" %}
-  <a href="#page-header" class="skip-nav" id="skip-nav">Skip to main</a>
+  <a href="#page-header" class="skip-nav js-hidden-from-mobile-nav" id="skip-nav">Skip to main</a>
   <div class="slider" id="page-slider">
     {% include "navigation/nav-mobile.njk" %}
     {% include "navigation/nav-desktop.njk" %}
-    <div class="page-wrap" id="page-wrap">
+    <div class="page-wrap js-hidden-from-mobile-nav" id="page-wrap">
       <header class="mobile-header">
         <h1 class="visuallyhidden">Bonesfish Captial</h1>
         <a href="/" class="logo-wrapper home-link" aria-label="Home">
