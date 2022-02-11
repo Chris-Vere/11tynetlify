@@ -27,6 +27,7 @@ $navWidth: 280px;
 }
 
 .slider {
+  
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: row-reverse;
@@ -50,6 +51,9 @@ $navWidth: 280px;
 
   @media screen and (min-width: 769px) {
     width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -97,6 +101,13 @@ $navWidth: 280px;
         display: none;
       }
     }
+  }
+
+  @media screen and (min-width: 769px){
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    // background-color: pink;
   }
 }
 .nav-mobile {
