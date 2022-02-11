@@ -1,26 +1,18 @@
-let mobileNav;
-let btn_openNav;
-let firstFocusableItem;
-let lastFocusableItem;
-let pageWrap;
-let bodyHeader;
+import { ELS } from './utils/elements';
+
 let outsideFocusables;
-let navDesktop;
 
 function initOpenMobileNav(e) {
   e.preventDefault();
-  mobileNav.setAttribute('aria-hidden', 'false');
-  pageWrap.setAttribute('aria-hidden', 'true');
+  ELS.NAV_MOBILE.setAttribute('aria-hidden', 'false');
+  shouldShowNonMobileNavItems(false);
   
-  outsideFocusables.forEach((item) => {
-    item.setAttribute('aria-hidden', 'true');
-  });
-
   window.requestAnimationFrame(() => {
-    pageWrap.addEventListener('click', initCloseMobileNav);
-    mobileNav.addEventListener('keydown', trapFocus);
+    ELS.PAGE_WRAP.addEventListener('click', initCloseMobileNav);
+    ELS.NAV_MOBILE.addEventListener('keydown', trapFocus);
     document.body.classList.add('init-nav-open');
 
+    // wait for page reflow caused by .init-nav-open before actually animating
     window.requestAnimationFrame(() => {
       document.body.classList.add('begin-nav-open');
     });
@@ -29,33 +21,32 @@ function initOpenMobileNav(e) {
 
 function initCloseMobileNav(e) {
   e.preventDefault();
-  mobileNav.setAttribute('aria-hidden', 'true');
-  pageWrap.setAttribute('aria-hidden', 'false');
+  ELS.NAV_MOBILE.setAttribute('aria-hidden', 'true');
+  shouldShowNonMobileNavItems(true);
 
   outsideFocusables.forEach((item) => {
     item.setAttribute('aria-hidden', 'false');
   });
 
   window.requestAnimationFrame(() => {
-    pageWrap.removeEventListener('click', initCloseMobileNav);
+    ELS.PAGE_WRAP.removeEventListener('click', initCloseMobileNav);
     document.body.classList.add('begin-nav-close');
   });
 }
 
 function handleAnimationEnd({ animationName }) {
   if (animationName === 'hideMobileNav') {
-    mobileNav.removeEventListener('keydown', trapFocus);
+    ELS.NAV_MOBILE.removeEventListener('keydown', trapFocus);
 
     window.requestAnimationFrame(() => {
       document.body.classList.remove('init-nav-open', 'begin-nav-open', 'begin-nav-close');
-      btn_openNav.focus();
+      ELS.BTN_OPEN_NAV.focus();
     });
   }
 
   if(animationName === 'showMobileNav') {
-    
     window.requestAnimationFrame(() => {
-      firstFocusableItem.focus();
+      ELS.FIRST_FOCUSABLE_MOBILE_NAV_ELEM.focus();
     });
   }
 }
@@ -66,13 +57,13 @@ function trapFocus(e) {
   }
 
   if(e.shiftKey) {
-    if(document.activeElement === firstFocusableItem) {
-      window.requestAnimationFrame(() => lastFocusableItem.focus());
+    if(document.activeElement === ELS.FIRST_FOCUSABLE_MOBILE_NAV_ELEM) {
+      window.requestAnimationFrame(() => ELS.LAST_FOCUSABLE_MOBILE_NAV_ELEM.focus());
       e.preventDefault();
     }
   } else {
-    if (document.activeElement === lastFocusableItem) {
-      window.requestAnimationFrame(() => firstFocusableItem.focus());
+    if (document.activeElement === ELS.LAST_FOCUSABLE_MOBILE_NAV_ELEM) {
+      window.requestAnimationFrame(() => ELS.FIRST_FOCUSABLE_MOBILE_NAV_ELEM.focus());
       e.preventDefault();
     }
   }
@@ -80,45 +71,50 @@ function trapFocus(e) {
   return;
 }
 
+function shouldShowNonMobileNavItems(shouldShow = true) {
+  window.requestAnimationFrame(() => {
+    if(shouldShow) {
+      ELS.HIDDEN_FROM_OPEN_NAV.forEach((item) => {
+        item.setAttribute('aria-hidden', 'false');
+        item.removeAttribute('tabindex');
+      });
+    } else {
+      ELS.HIDDEN_FROM_OPEN_NAV.forEach((item) => {
+        item.setAttribute('aria-hidden', 'true');
+        item.setAttribute('tabindex', '-1');
+      });
+    }
+  });
+}
+
 function skipToNav(e) {
   e.preventDefault();
-  bodyHeader.scrollIntoView({ behavior: 'smooth' });
-}
-
-export function initSkipNav() {
-  const skipNavBtn = document.getElementById('skip-nav');
-  bodyHeader = document.getElementById('body-header');
-  skipNavBtn.addEventListener('click', skipToNav);
-}
-
-export function initMobileNav() {
-  mobileNav = document.getElementById('mobile-nav');
-  btn_openNav = document.getElementById('btn-open-mobile-nav');
-  pageWrap = document.getElementById('page-wrap');
-  const btn_closeNav = document.getElementById('btn-close-mobile-nav');
-  const pageSlider = document.getElementById('page-slider');
-  const focusableItems = [...mobileNav.querySelectorAll('a, button')];
-  firstFocusableItem = focusableItems[0];
-  lastFocusableItem = focusableItems[focusableItems.length - 1];
-
-  outsideFocusables = [...document.getElementsByClassName('js-outside-focusable')];
-  btn_openNav.addEventListener('click', initOpenMobileNav);
-  btn_closeNav.addEventListener('click', initCloseMobileNav);
-  pageSlider.addEventListener('animationend', handleAnimationEnd);
+  ELS.BODY_HEADER.scrollIntoView({ behavior: 'smooth' });
 }
 
 function handleMediaChange(obj) {
-  if(obj.matches) {
-    navDesktop.setAttribute('aria-hidden', 'false');
-  }else {
-    navDesktop.setAttribute('aria-hidden', 'true');
+  if (obj.matches) {
+    ELS.NAV_DESKTOP.setAttribute('aria-hidden', 'false');
+  } else {
+    ELS.NAV_DESKTOP.setAttribute('aria-hidden', 'true');
   }
 }
 
+export function initSkipNav() {
+  ELS.BTN_SKIP_NAV.addEventListener('click', skipToNav);
+}
+
+export function initMobileNav() {
+  outsideFocusables = [...document.getElementsByClassName('js-outside-focusable')];
+  ELS.BTN_OPEN_NAV.addEventListener('click', initOpenMobileNav);
+  ELS.BTN_CLOSE_NAV.addEventListener('click', initCloseMobileNav);
+  ELS.PAGE_SLIDER.addEventListener('animationend', handleAnimationEnd);
+}
+
 export function initDesktopNav() {
-  navDesktop = document.getElementById('nav-desktop');
+  ELS.NAV_DESKTOP = document.getElementById('nav-desktop');
   
-  const mediaChange = window.matchMedia('screen and (min-width: 768px)');
-  mediaChange.addEventListener('change', handleMediaChange);
-  handleMediaChange(mediaChange);
+  const mediaMatch = window.matchMedia('screen and (min-width: 768px)');
+  mediaMatch.addEventListener('change', handleMediaChange);
+  handleMediaChange(mediaMatch);
 }
