@@ -20,8 +20,8 @@
 
 {% macro stylizedEventListItem(itemData) %}
   <li class="stylized-list-item">
-    <h4 class="stylized-list-item-heading">{{itemData.date}}</h4>
-    <p class="stylized-list-item-desc"><a href="{{ itemData.url }}" rel="external">{{ itemData.name }}</a></p>
+    <h4 class="stylized-list-item-heading">{{itemData.date | safe}}</h4>
+    <p class="stylized-list-item-desc"><a href="{{ itemData.url }}" rel="external">{{ itemData.name | safe }}</a></p>
   </li>
 {% endmacro %}
 

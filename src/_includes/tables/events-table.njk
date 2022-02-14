@@ -2,20 +2,21 @@
 {{
   tables.table(
     [{
-      text: 'Event Date and Location',
+      text: 'Date and Location',
       cellContent: {
         macro: tables.eventsDateLocation,
         macroArgs: ['date', 'location']
       }
     }, {
-      text: 'Event Name and Link',
+      text: 'Event Name',
       cellContent: {
         macro: tables.eventsLinkedName,
         macroArgs: ['name', 'url']
       }
     }],
     eventsData,
-    'Bonefish Capital Events',
-    'events-table'
+    'Bonefish Capital Will Be Attending These Events',
+    'events-table',
+    'mobile-reversed mobile-no-col-header'
   )
 }}

@@ -1,0 +1,115 @@
+.table {
+  width: 100%;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+  
+  @media screen and (max-width: 640px){
+    $titleWidth: 34%;
+    $contentWidth: 100% - $titleWidth;
+
+    &-head {
+      display: none;
+    }
+
+    &-row {
+      display: flex;
+      flex-direction: column;
+      padding: 1em;
+      background-color: $blue-light;
+      margin-bottom: 1em;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .mobile-reversed & {
+        flex-direction: column-reverse;
+      }
+    }
+
+    &-row-header,
+    &-cell {
+      display: flex;
+      text-align-last: left;
+
+      &::before {
+        content: attr(data-content);
+        display: block;
+        width: $titleWidth;
+        margin-right: 1em;
+        text-align: left;
+      }
+
+      .mobile-no-col-header & {
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    &-cell{
+      &-content {
+        display: block;
+        width: $contentWidth;
+        text-align: left;
+
+        .mobile-no-col-header & {
+          width: 100%;
+        }
+      }
+    }
+
+    &-row-header {
+      font-weight: 400;
+      border-bottom: 1px solid $white;
+      padding-bottom: 0.5em;
+      margin-bottom: 0.5em;
+
+      .mobile-reversed & {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        
+        border-top: 1px solid $white;
+        padding-top: 0.5em;
+        margin-top: 0.5em;
+      }
+    }
+  }
+
+  @media screen and (min-width: 641px){
+    &-column-header {
+      color: $blue;
+    }
+
+    &-row{
+      &:nth-child(odd) {
+        background-color: $blue-light;
+      }
+    }
+
+    &-row-header,
+    &-cell {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+
+    &-row-header {
+      width: 30%;
+      padding-left: 1em;
+      padding-right: 0.5em;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    &-cell {
+      padding-left: 0.5em;
+      padding-right: 1em;
+    }
+
+    &-cell-content {
+      display: block;
+      text-align: left;
+    }
+  }
+}
