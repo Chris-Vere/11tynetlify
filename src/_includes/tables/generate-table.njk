@@ -3,21 +3,22 @@
     headersData,
     bodyData,
     caption,
-    tableID)
+    tableID,
+    classes)
 %}
-  <table>
-    <caption>{{caption}}</caption>
-    <thead>
+  <table class="table {{ classes }}">
+    <caption class="visuallyhidden">{{caption}}</caption>
+    <thead class="table-head">
       <tr>
         {% for headerConfig in headersData %}
-          <th scope="col" id="{{getColumnHeaderID(tableID, loop.index0) | trim}}">{{headerConfig.text}}</th>
+          <th class="table-column-header" scope="col" id="{{ getColumnHeaderID(tableID, loop.index0) | trim }}">{{ headerConfig.text }}</th>
         {% endfor %}
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table-body">
       {% for event in bodyData %}
         {% set rowIndex = loop.index0 %}
-        <tr>
+        <tr class="table-row">
           {% for headerConfig in headersData %}
             {% set columnIndex = loop.index0 %}
             {% if columnIndex === 0 %}
@@ -30,9 +31,11 @@
               {% set headersAttr = [headersA, headersB].join(' ') %}
             {% endif %}
 
-            <t{{elemName}} {% if columnIndex === 0 %}scope="row" id="{{getRowHeaderID(tableID, rowIndex) | trim}}"{% endif %} headers="{{headersAttr | trim}}">
-              {% set macroArgs = headerConfig.cellContent.macroArgs %}
-              {{ headerConfig.cellContent.macro(event, macroArgs) }}
+            <t{{elemName}} data-content="{{ headersData[columnIndex].text }}:" {% if columnIndex === 0 %}scope="row" id="{{getRowHeaderID(tableID, rowIndex) | trim}}" class="table-row-header"{% else %}class="table-cell"{% endif %} headers="{{headersAttr | trim}}">
+              <span class="table-cell-content">
+                {% set macroArgs = headerConfig.cellContent.macroArgs %}
+                {{ headerConfig.cellContent.macro(event, macroArgs) }}
+              </span>
             </t{{elemName}}>
           {% endfor %}
         </tr>
@@ -52,20 +55,22 @@
 {# ================= #}
 
 {# Public Macros #}
-  {# Events #}
+{# Events #}
 {% macro eventsDateLocation(cellData, config) %}
-  {{ cellData[config[0]] }}<br>
-  {{ cellData[config[1]] }}
+  {{ cellData[config[0]] | safe }}
+  {% if cellData[config[1]]%}<br>{% endif %}
+  {{ cellData[config[1]] | safe}}
 {% endmacro %}
 
 {% macro eventsLinkedName(cellData, config) %}
-  <a href="{{cellData.url}}">{{cellData.name}}</a>
+  <a href="{{cellData.url}}" rel="external">{{cellData.name}}</a>
 {% endmacro %}
 
-  {# News #}
+{# News #}
 {% macro newsDateSource(cellData, config) %}
-  {{ cellData[config[0]] }}<br>
-  {{ cellData[config[1]] }}
+  {{ cellData[config[0]] | safe}}
+  {% if cellData[config[0]] and cellData[config[1]] %}<br>{% endif %}
+  {% if cellData[config[1]] %}{{ cellData[config[1]] }}{% endif %}
 {% endmacro %}
 
 {% macro newsDescription(cellData, config) %}
