@@ -1,6 +1,6 @@
 const newsData = [{
   name: 'NAID 2016 Annual Conference and Expo',
-  date: 'April 7-9, 2016',
+  date: 'April 7&mdash;9, 2016',
   description: 'Bonefish Capital\'s Paul Zaidins will be a panelist on &ldquo;The Impact of Industry Consolidation on Growth and Valuations&rdquo; on April 8, 2016 at 10: 00 am during the <a href="http://www.naidconf.org/ehome/naid2016/321845" rel="external">NAID 2016 Annual Conference and Expo</a>.',
 }, {
   name: '-',

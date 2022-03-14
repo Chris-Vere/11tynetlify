@@ -37,7 +37,14 @@ $bp-begin-multi-col: 600px;
   }
 
   &-heading {
+    display: inline-block;
     font-size: 1.25em;
+    border-bottom: 1px solid $yellow;
+    margin-bottom: 0.5em;
+
+    @media screen and (min-width: 1200px){
+      display: block;
+    }
   }
 
   &-sub-heading {
